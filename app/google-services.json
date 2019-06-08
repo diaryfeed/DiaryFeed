@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "72142158130",
+    "firebase_url": "https://diaryfeed.firebaseio.com",
+    "project_id": "diaryfeed",
+    "storage_bucket": "diaryfeed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72142158130:android:e6317435ed153fd6",
+        "android_client_info": {
+          "package_name": "com.example.reetesh_ranjan.diaryfeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72142158130-c8u9hbhkd7cdaje8ukq91efk10loaqn3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.reetesh_ranjan.diaryfeed",
+            "certificate_hash": "ced102cd0f0833ddac3383b82f979bf64cd50245"
+          }
+        },
+        {
+          "client_id": "72142158130-p2tmrd8lsnpfm1aplh0er3ot0oh0tdj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5XmoCnQDuZenMWZ9u2PMKCMuq1i-wWKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72142158130-p2tmrd8lsnpfm1aplh0er3ot0oh0tdj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

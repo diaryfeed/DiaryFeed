@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DiaryFeed</string>
-    <string name="facebook_app_id">id</string>
-    <string name="fb_login_protocol_scheme">fbid</string>
     <string name="myString"><u>Terms of Services</u></string>
     <string name="google_sign_up">Continue with Google</string>
+    <string name="facebook_app_id">413064886209090</string>
+    <string name="fb_login_protocol_scheme">fb413064886209090</string>
 </resources>

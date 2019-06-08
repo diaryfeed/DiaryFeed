@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/logo1" />
+        android:src="@drawable/interpost" />
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -28,7 +28,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
-            android:paddingStart="6dp">
+            android:paddingStart="6dp"
+            app:errorEnabled="true">
 
             <EditText
                 android:id="@+id/userId_eT"
@@ -49,7 +50,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
-            android:paddingStart="6dp">
+            android:paddingStart="6dp"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/userPass_eT"
@@ -131,7 +134,7 @@
         >
 
 
-        <com.facebook.login.widget.LoginButton
+        <Button
             android:id="@+id/login_button"
             android:layout_width="230dp"
             android:layout_height="40dp"
@@ -182,5 +185,16 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/myString"/>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progressbar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme"
+        app:SpinKit_Color="@color/colorAccent"
+        android:visibility="gone"
+        style="@style/SpinKitView.Large.Circle"/>
 
 </RelativeLayout>
