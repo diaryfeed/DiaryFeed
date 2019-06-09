@@ -199,6 +199,7 @@ public class LoginActivity extends AppCompatActivity {
 
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
+                progressBar.setVisibility(View.GONE);
                 Log.w("TAG", "Google sign in failed", e);
                 Toast.makeText(LoginActivity.this,"Google sign in failed "+e,Toast.LENGTH_SHORT).show();
                 // ...
@@ -221,6 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
+                            progressBar.setVisibility(View.GONE);
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this,"Authentication Failed.",Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -259,6 +261,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
         else {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(LoginActivity.this,"Authentication Failed.",Toast.LENGTH_SHORT).show();
         }
     }

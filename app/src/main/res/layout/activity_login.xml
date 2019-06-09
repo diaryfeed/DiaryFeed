@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/interpost" />
+        android:src="@drawable/logo_text_diary" />
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -36,10 +36,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Email"
-                android:textSize="15dp"
                 android:inputType="textEmailAddress"
                 android:padding="6dp"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:textSize="15dp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -62,7 +62,8 @@
                 android:textSize="15dp"
                 android:inputType="textPassword"
                 android:padding="6dp"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                />
 
         </android.support.design.widget.TextInputLayout>
 

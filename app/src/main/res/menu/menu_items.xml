@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:title="Home"
+            />
+        <item
+            android:id="@+id/bookmark"
+            android:title="Bookmarks"
+            />
+        <item
+            android:id="@+id/intrest"
+            android:title="Intrests"
+            />
+        <item
+            android:id="@+id/dashboard"
+            android:title="DashBoard"
+            />
+        <item
+            android:id="@+id/setting"
+            android:title="Settings"
+            />
+    </group>
+
+    <item android:title="Stories"
+        >
+        <menu>
+            <item
+                android:id="@+id/view_post"
+                android:title="Post"
+                />
+            <item
+                android:id="@+id/create_post"
+                android:title="Create Post"
+                />
+        </menu>
+    </item>
+
+    <item android:title="Cummunication">
+     <menu>
+         <item
+             android:id="@+id/help"
+             android:title="Help"
+             />
+         <item
+             android:id="@+id/contact"
+             android:title="Contact Us"
+             />
+         <item
+             android:id="@+id/about"
+             android:title="About Us"
+             />
+         <item
+             android:id="@+id/logout"
+             android:title="Logout"
+             />
+
+      </menu>
+    </item>
+</menu>

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "72142158130-rq2nv29dr790913koumo1fq91iumrarg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.reetesh_ranjan.diaryfeed",
+            "certificate_hash": "41ce6efa118790f058b49dc19e5e50209f82d505"
+          }
+        },
+        {
           "client_id": "72142158130-c8u9hbhkd7cdaje8ukq91efk10loaqn3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -36,7 +44,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "72142158130-p2tmrd8lsnpfm1aplh0er3ot0oh0tdj4.apps.googleusercontent.com",
+              "client_id": "72142158130-lv3sjec4aonb3hm7vic79r89iaph7t80.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
