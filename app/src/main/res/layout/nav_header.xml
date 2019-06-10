@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="250dp"
     android:orientation="vertical"
+    android:id="@+id/header"
     android:background="@color/colorPrimaryDark"
     android:gravity="bottom"
     android:padding="16dp"
@@ -31,6 +32,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
+        android:id="@+id/tv_seeprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
