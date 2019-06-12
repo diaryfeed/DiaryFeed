@@ -3,7 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorLikes">#FF0000</color>
     <color name="background">#ffffff</color>
     <color name="Dark_color">#39393d</color>
-
+    <color name="backcolor">#241333</color>
+    <color name="layoutcolor">#8a56ab</color>
+    <color name="buttonTextColor">#03ae7d</color>
 </resources>

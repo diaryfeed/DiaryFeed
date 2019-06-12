@@ -6,22 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="Home"
             />
         <item
             android:id="@+id/bookmark"
+            android:icon="@drawable/ic_bookmark_border_black_24dp"
             android:title="Bookmarks"
             />
         <item
             android:id="@+id/intrest"
+            android:icon="@drawable/action_like_gray"
             android:title="Intrests"
             />
         <item
             android:id="@+id/dashboard"
+            android:icon="@drawable/ic_dashboard_black_24dp"
             android:title="DashBoard"
             />
         <item
             android:id="@+id/setting"
+            android:icon="@drawable/ic_settings_black_24dp"
             android:title="Settings"
             />
     </group>
@@ -31,34 +36,40 @@
         <menu>
             <item
                 android:id="@+id/view_post"
+                android:icon="@drawable/ic_list_black_24dp"
                 android:title="Post"
                 />
             <item
                 android:id="@+id/create_post"
+                android:icon="@drawable/ic_create_black_24dp"
                 android:title="Create Post"
                 />
         </menu>
     </item>
 
     <item android:title="Cummunication">
-     <menu>
-         <item
-             android:id="@+id/help"
-             android:title="Help"
-             />
-         <item
-             android:id="@+id/contact"
-             android:title="Contact Us"
-             />
-         <item
-             android:id="@+id/about"
-             android:title="About Us"
-             />
-         <item
-             android:id="@+id/logout"
-             android:title="Logout"
-             />
+        <menu>
+            <item
+                android:id="@+id/help"
+                android:icon="@drawable/ic_help_black_24dp"
+                android:title="Help"
+                />
+            <item
+                android:id="@+id/contact"
+                android:icon="@drawable/ic_perm_contact_calendar_black_24dp"
+                android:title="Contact Us"
+                />
+            <item
+                android:id="@+id/about"
+                android:icon="@drawable/about"
+                android:title="About Us"
+                />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/logout"
+                android:title="Logout"
+                />
 
-      </menu>
+        </menu>
     </item>
 </menu>

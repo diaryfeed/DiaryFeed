@@ -249,13 +249,13 @@ public class LoginActivity extends AppCompatActivity {
             uStore.collection("Users").document(uid).set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                   if (task.isSuccessful()){
-                       sendToHome();
-                   }
-                   else {
-                       progressBar.setVisibility(View.GONE);
-                       Toast.makeText(LoginActivity.this,"Data Storing Failed"+""+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                   }
+                    if (task.isSuccessful()){
+                        sendToHome();
+                    }
+                    else {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(LoginActivity.this,"Data Storing Failed"+""+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }) ;
 

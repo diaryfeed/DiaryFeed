@@ -1,54 +1,60 @@
 package com.example.reetesh_ranjan.diaryfeed;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firestore;
+    private String userId;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private TextView seeprofile;
+    private HomeFragment homeFragment;
 
+    private TextView userName;
+    private TextView userEmail;
+    private CircleImageView userImage;
 
-
+    private String name;
+    private String email;
+    private String phone;
+    private String image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        View headerview=navigationView.getHeaderView(0);
-        seeprofile =(TextView)headerview.findViewById(R.id.tv_seeprofile);
-
-        seeprofile.setOnClickListener(new View.OnClickListener() {
-            @Override    public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,SeeProfile.class);
-                startActivity(intent);
-                }
-        });
-
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         firebaseAuth=FirebaseAuth.getInstance();
+        firestore=FirebaseFirestore.getInstance();
+        userId=firebaseAuth.getCurrentUser().getUid().toString();
 
         navigationView=(NavigationView)findViewById(R.id.nav_view);
         drawerLayout=findViewById(R.id.drawer_layout);
@@ -56,17 +62,88 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView=navigationView.getHeaderView(0);
+        userName=(TextView)headerView.findViewById(R.id.tv_user_name);
+        userEmail=(TextView)headerView.findViewById(R.id.tv_user_email);
+        userImage=(CircleImageView) headerView.findViewById(R.id.user_profile_image);
+        seeprofile =(TextView)headerView.findViewById(R.id.tv_seeprofile);
 
-         if(savedInstanceState==null) {
-             getSupportFragmentManager().beginTransaction().
-                     replace(R.id.fragment_container, new HomeFragment())
-                     .commit();
-             navigationView.setCheckedItem(R.id.home_fragment);
-         }
+        firestore.collection("Users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    if (task.getResult().exists()){
+                        name=task.getResult().getString("name");
+                        Log.d("Tag","name of user:"+name);
+                        email=task.getResult().getString("email");
+                        phone=task.getResult().getString("mobile_no");
+                        image=task.getResult().getString("profilePicUrl");
+
+                        setUserProfile();
+                    }
+                    else {
+                        Toast.makeText(HomeActivity.this,"Data doesn't exits ",Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(HomeActivity.this,"Data Retrieve Failed: "+ task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        seeprofile.setOnClickListener(new View.OnClickListener() {
+            @Override    public void onClick(View v) {
+
+                startFullProfile();
+            }
+        });
+
+        homeFragment=new HomeFragment();
+
+        replaceFragment(homeFragment);
 
 
     }
+
+    private void startFullProfile() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+
+        Intent intent = new Intent(HomeActivity.this,SeeProfileActivity.class);
+        intent.putExtra("uid",userId);
+        intent.putExtra("name",name);
+        intent.putExtra("email",email);
+        intent.putExtra("phone",phone);
+        intent.putExtra("userProfileImage",image);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setUserProfile() {
+        String newString = null;
+        String originalPieceOfUrl = "s96-c/photo.jpg";
+        String newPieceOfUrlToAdd = "s400-c/photo.jpg";
+        if (image!=null){
+             newString = image.replace(originalPieceOfUrl, newPieceOfUrlToAdd); 
+        }
+      
+
+        RequestOptions placeHolder=new RequestOptions();
+        placeHolder.placeholder(R.drawable.profile_placeholder);
+        Glide.with(this).applyDefaultRequestOptions(placeHolder).load(newString).into(userImage);
+        userName.setText(name);
+        userEmail.setText(email);
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
+
 
     @Override
     protected void onStart() {
@@ -96,18 +173,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment selectedFragment=null;
         switch (menuItem.getItemId()) {
             case R.id.create_post:
                 Intent intent=new Intent(getApplicationContext(),CreatePost.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.home_fragment:
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.fragment_container,new HomeFragment())
-                        .commit();
+                 replaceFragment(homeFragment);
                 break;
-
             case R.id.logout:
                 firebaseAuth.signOut();
                 sendToLogin();
@@ -115,12 +189,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
             default:
+                return false;
                 //Toast.makeText(MainActivity.this,"Default Page",Toast.LENGTH_LONG).show();
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         }
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-
     }
 }

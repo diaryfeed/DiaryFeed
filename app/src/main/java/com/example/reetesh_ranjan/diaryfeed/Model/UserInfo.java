@@ -1,7 +1,7 @@
 package com.example.reetesh_ranjan.diaryfeed.Model;
 
 public class UserInfo {
-    String uid,name,email,mobile_no,profilePicUrl;
+    private String uid,name,email,mobile_no,profilePicUrl,gender;
 
     public UserInfo(){
 
@@ -13,6 +13,14 @@ public class UserInfo {
         this.email = email;
         this.mobile_no = mobile_no;
         this.profilePicUrl = profilePicUrl;
+    }
+    public UserInfo(String uid, String name, String email, String mobile_no, String profilePicUrl,String gender) {
+        this.uid = uid;
+        this.name = name;
+        this.email = email;
+        this.mobile_no = mobile_no;
+        this.profilePicUrl = profilePicUrl;
+        this.gender=gender;
     }
 
     public String getUid() {
@@ -53,5 +61,13 @@ public class UserInfo {
 
     public void setProfilePicUrl(String profilePicUrl) {
         this.profilePicUrl = profilePicUrl;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
