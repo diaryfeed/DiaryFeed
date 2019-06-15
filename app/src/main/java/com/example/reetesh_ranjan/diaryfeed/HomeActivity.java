@@ -2,6 +2,7 @@ package com.example.reetesh_ranjan.diaryfeed;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -31,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
+
     private String userId;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -40,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private TextView userName;
     private TextView userEmail;
     private CircleImageView userImage;
-
+    private FloatingActionButton floatingActionButton;
     private String name;
     private String email;
     private String phone;
@@ -52,6 +54,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FloatingActionButton floatingActionButton=(FloatingActionButton) findViewById(R.id.fabBtn);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,CreatePost.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         firebaseAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
         userId=firebaseAuth.getCurrentUser().getUid().toString();
