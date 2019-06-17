@@ -8,4 +8,11 @@
     <string name="navigation_drawer_open">open navigation drawer</string>
     <string name="navigation_drawer_close">close navigation drawer</string>
     <string name="referenceOfPostImage">post_images</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="drafts_fragment">Hello Drafts fragment</string>
+    <string name="publish_fragment">Hello Publish fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.reetesh_ranjan.diaryfeed;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.reetesh_ranjan.diaryfeed.fragments.BookMarksFragment;
+import com.example.reetesh_ranjan.diaryfeed.fragments.HomeFragment;
+import com.example.reetesh_ranjan.diaryfeed.fragments.PostFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +38,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private String userId;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private FloatingActionButton fab;
     private TextView seeprofile;
     private HomeFragment homeFragment;
+    private PostFragment postFragment;
+    private BookMarksFragment bookMarksFragment;
 
     private TextView userName;
     private TextView userEmail;
@@ -69,6 +76,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         userEmail=(TextView)headerView.findViewById(R.id.tv_user_email);
         userImage=(CircleImageView) headerView.findViewById(R.id.user_profile_image);
         seeprofile =(TextView)headerView.findViewById(R.id.tv_seeprofile);
+        fab=(FloatingActionButton)findViewById(R.id.fabBtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToCreatePostActivity();
+            }
+        });
+
 
         firestore.collection("Users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -100,6 +115,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         homeFragment=new HomeFragment();
+        postFragment=new PostFragment();
+        bookMarksFragment=new BookMarksFragment();
 
         replaceFragment(homeFragment);
 
@@ -175,12 +192,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.create_post:
-                Intent intent=new Intent(getApplicationContext(),CreatePost.class);
-                startActivity(intent);
-                finish();
+                sendToCreatePostActivity();
                 break;
-            case R.id.home_fragment:
+            case R.id.home_view:
                  replaceFragment(homeFragment);
+                 break;
+
+            case R.id.view_post:
+                replaceFragment(postFragment);
+                break;
+
+            case R.id.bookmark:
+                replaceFragment(bookMarksFragment);
                 break;
             case R.id.logout:
                 firebaseAuth.signOut();
@@ -195,5 +218,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void sendToCreatePostActivity() {
+        Intent intent=new Intent(getApplicationContext(),CreatePost.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.reetesh_ranjan.diaryfeed;
+package com.example.reetesh_ranjan.diaryfeed.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.reetesh_ranjan.diaryfeed.Model.BlogPost;
+import com.example.reetesh_ranjan.diaryfeed.R;
 import com.example.reetesh_ranjan.diaryfeed.adapter.BlogRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

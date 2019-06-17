@@ -22,6 +22,7 @@ import com.example.reetesh_ranjan.diaryfeed.CommentPopUpWindow;
 import com.example.reetesh_ranjan.diaryfeed.Model.BlogPost;
 import com.example.reetesh_ranjan.diaryfeed.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -231,6 +232,20 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogItemViewHolder
                context.startActivity(commentIntent);
            }
        });
+        //Get Likes
+        firestore.collection("Users/" + currentUserId + "/SavePosts").document(blogPostId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.exists()){
+                    Drawable drawable=context.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp);
+                    blogItemViewHolder.blog_bookmarks.setImageDrawable(drawable);
+                }
+                else {
+                    Drawable drawable=context.getResources().getDrawable(R.drawable.ic_bookmark_border_black_24dp);
+                    blogItemViewHolder.blog_bookmarks.setImageDrawable(drawable);
+                }
+            }
+        });
        blogItemViewHolder.blog_bookmarks.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -245,8 +260,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogItemViewHolder
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                                Map<String,Object> saveMap=new HashMap<>();
+                            if (task.isSuccessful()){
+                                Map<String, Object> saveMap = new HashMap<>();
                                 saveMap.put("image_url", task.getResult().getString("image_url"));
                                 saveMap.put("image_thumb", task.getResult().getString("image_thumb"));
                                 saveMap.put("title", task.getResult().getString("title"));
@@ -254,29 +269,44 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogItemViewHolder
                                 saveMap.put("user_id", task.getResult().getString("user_id"));
                                 saveMap.put("timestamp", task.getResult().getDate("timestamp"));
 
-                                savePost(saveMap,blogPostId);
+                                savePost(saveMap, blogPostId);
 
-                        }else{
-                            Toast.makeText(context,"Save error:"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                        }
+                            }else {
+                                Toast.makeText(context,"Data Retrieve Data: " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            }
 
                     }
                 });
     }
 
-    private void savePost(Map<String,Object> saveMap, String blogPostId) {
-        firestore.collection("Users").document(currentUserId).collection("SavePosts")
-                .document(blogPostId)
-                .set(saveMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+    private void savePost(final Map<String,Object> saveMap, final String blogPostId) {
+        firestore.collection("Users/" + currentUserId + "/SavePosts").document(blogPostId).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(context,"Saved..",Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(context,"Error:"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                        }
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.getResult().exists()){
+                            firestore.collection("Users").document(currentUserId).collection("SavePosts")
+                                    .document(blogPostId)
+                                    .set(saveMap)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                Toast.makeText(context,"BookMarked",Toast.LENGTH_SHORT).show();
+                                            }else {
+                                                Toast.makeText(context,"Error:"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                                            }
 
+                                        }
+                                    });
+                        }else {
+                            firestore.collection("Users/" + currentUserId + "/SavePosts").document(blogPostId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(context,"UnBookMarked",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
                 });
 
