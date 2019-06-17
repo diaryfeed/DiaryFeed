@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.reetesh_ranjan.diaryfeed.Fragments.BookmarksFragment;
+import com.example.reetesh_ranjan.diaryfeed.Fragments.HomeFragment;
+import com.example.reetesh_ranjan.diaryfeed.Fragments.PostFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,17 +35,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
-
     private String userId;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private FloatingActionButton fab;
     private TextView seeprofile;
     private HomeFragment homeFragment;
+    private PostFragment postFragment;
+    private BookmarksFragment bookMarksFragment;
 
     private TextView userName;
     private TextView userEmail;
     private CircleImageView userImage;
-    private FloatingActionButton floatingActionButton;
+
     private String name;
     private String email;
     private String phone;
@@ -54,17 +59,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton floatingActionButton=(FloatingActionButton) findViewById(R.id.fabBtn);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,CreatePost.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
         firebaseAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
         userId=firebaseAuth.getCurrentUser().getUid().toString();
@@ -82,6 +76,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         userEmail=(TextView)headerView.findViewById(R.id.tv_user_email);
         userImage=(CircleImageView) headerView.findViewById(R.id.user_profile_image);
         seeprofile =(TextView)headerView.findViewById(R.id.tv_seeprofile);
+        fab=(FloatingActionButton)findViewById(R.id.fabBtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToCreatePostActivity();
+            }
+        });
+
 
         firestore.collection("Users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -113,6 +115,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         homeFragment=new HomeFragment();
+        postFragment=new PostFragment();
+        bookMarksFragment=new BookmarksFragment();
 
         replaceFragment(homeFragment);
 
@@ -140,9 +144,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String originalPieceOfUrl = "s96-c/photo.jpg";
         String newPieceOfUrlToAdd = "s400-c/photo.jpg";
         if (image!=null){
-             newString = image.replace(originalPieceOfUrl, newPieceOfUrlToAdd); 
+            newString = image.replace(originalPieceOfUrl, newPieceOfUrlToAdd);
         }
-      
+
 
         RequestOptions placeHolder=new RequestOptions();
         placeHolder.placeholder(R.drawable.profile_placeholder);
@@ -188,12 +192,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.create_post:
-                Intent intent=new Intent(getApplicationContext(),CreatePost.class);
-                startActivity(intent);
-                finish();
+                sendToCreatePostActivity();
                 break;
-            case R.id.home_fragment:
-                 replaceFragment(homeFragment);
+            case R.id.home:
+                replaceFragment(homeFragment);
+                break;
+
+            case R.id.view_post:
+                replaceFragment(postFragment);
+                break;
+
+            case R.id.bookmark:
+                replaceFragment(bookMarksFragment);
                 break;
             case R.id.logout:
                 firebaseAuth.signOut();
@@ -203,10 +213,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             default:
                 return false;
-                //Toast.makeText(MainActivity.this,"Default Page",Toast.LENGTH_LONG).show();
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            //Toast.makeText(MainActivity.this,"Default Page",Toast.LENGTH_LONG).show();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void sendToCreatePostActivity() {
+        Intent intent=new Intent(getApplicationContext(),CreatePost.class);
+        startActivity(intent);
+        finish();
     }
 }

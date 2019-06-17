@@ -15,9 +15,9 @@
             android:title="Bookmarks"
             />
         <item
-            android:id="@+id/intrest"
-            android:icon="@drawable/action_like_gray"
-            android:title="Intrests"
+            android:id="@+id/interst"
+            android:icon="@drawable/ic_favorite_border_black_24dp"
+            android:title="Intersts"
             />
         <item
             android:id="@+id/dashboard"
