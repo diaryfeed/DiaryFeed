@@ -59,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Home");
         firebaseAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
         userId=firebaseAuth.getCurrentUser().getUid().toString();
@@ -195,14 +196,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 sendToCreatePostActivity();
                 break;
             case R.id.home_view:
+                getSupportActionBar().setTitle("Home");
                  replaceFragment(homeFragment);
                  break;
 
             case R.id.view_post:
+                getSupportActionBar().setTitle("Posts");
                 replaceFragment(postFragment);
                 break;
 
             case R.id.bookmark:
+                getSupportActionBar().setTitle("Bookmarks");
                 replaceFragment(bookMarksFragment);
                 break;
             case R.id.logout:

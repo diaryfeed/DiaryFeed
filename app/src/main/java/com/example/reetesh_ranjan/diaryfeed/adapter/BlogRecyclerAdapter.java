@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +61,7 @@ class BlogItemViewHolder extends RecyclerView.ViewHolder implements View.OnCreat
     public TextView comment_count;
 
     public ImageView blog_bookmarks;
+    public TextView blog_menu;
 
     public BlogItemViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -77,6 +80,7 @@ class BlogItemViewHolder extends RecyclerView.ViewHolder implements View.OnCreat
         comment_count=(TextView) itemView.findViewById(R.id.blog_comment_count);
 
         blog_bookmarks=(ImageView) itemView.findViewById(R.id.blog_bookmarks);
+        blog_menu=(TextView) itemView.findViewById(R.id.menu_digit);
 
     }
 
@@ -139,7 +143,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final BlogItemViewHolder blogItemViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final BlogItemViewHolder blogItemViewHolder, final int i) {
         blogItemViewHolder.setIsRecyclable(false);
 
         final String blogPostId=blogPostList.get(i).blogPostId;
@@ -169,7 +173,33 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogItemViewHolder
         long milliseconds=blogPostList.get(i).getTimestamp().getTime();
         String date=DateFormat.format("dd/MM/yyyy",new Date(milliseconds)).toString();
         blogItemViewHolder.setDate(date);
-        //Get Likes Count
+
+        blogItemViewHolder.blog_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu= new PopupMenu(context,blogItemViewHolder.blog_menu);
+                popupMenu.inflate(R.menu.blog_recycler_menu_items);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.save:
+                                Toast.makeText(context,"Saved post..",Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.show_fewer_posts:
+                                blogPostList.remove(i);
+                                notifyDataSetChanged();
+                                Toast.makeText(context,"show fewer posts",Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
         //Get Likes Count
         firestore.collection("posts/" + blogPostId + "/Likes").addSnapshotListener( new EventListener<QuerySnapshot>() {
             @Override
