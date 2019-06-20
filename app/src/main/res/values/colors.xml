@@ -9,4 +9,13 @@
     <color name="backcolor">#241333</color>
     <color name="layoutcolor">#8a56ab</color>
     <color name="buttonTextColor">#03ae7d</color>
+    <color name="bg">#009693</color>
+    <color name="bg1">#DCDCDC</color>
+
+    <color name="color_white">#ffffff</color>
+    <color name="background_Image_tint">#77002237</color>
+
+    <color name="color_gray_green">#375730</color>
+    <color name="background_green_image_tint">#613C5730</color>
+    <color name="color_transparent">#00FFFFFF</color>
 </resources>

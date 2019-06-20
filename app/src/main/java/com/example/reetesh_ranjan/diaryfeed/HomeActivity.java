@@ -130,11 +130,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
 
         Intent intent = new Intent(HomeActivity.this,SeeProfileActivity.class);
-        intent.putExtra("uid",userId);
+        /*intent.putExtra("uid",userId);
         intent.putExtra("name",name);
         intent.putExtra("email",email);
         intent.putExtra("phone",phone);
-        intent.putExtra("userProfileImage",image);
+        intent.putExtra("userProfileImage",image);*/
         startActivity(intent);
         finish();
     }

@@ -7,6 +7,4 @@
     <string name="myProfile"><u>see profile</u></string>
     <string name="navigation_drawer_open">open navigation drawer</string>
     <string name="navigation_drawer_close">close navigation drawer</string>
-    <string name="referenceOfPostImage">post_images</string>
-
 </resources>

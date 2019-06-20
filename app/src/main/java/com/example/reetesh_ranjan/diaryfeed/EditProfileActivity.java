@@ -46,7 +46,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
 
 public class EditProfileActivity extends AppCompatActivity {
-    private StorageReference storageReference;
+   /* private StorageReference storageReference;
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
@@ -70,14 +70,14 @@ public class EditProfileActivity extends AppCompatActivity {
     private String email;
     private String phone;
     private String gender;
-    private String image;
+    private String image;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        Intent intent = getIntent();
+       /* Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle!=null){
             name = bundle.getString("name");
@@ -261,6 +261,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 Toast.makeText(this,"Error: " + error,Toast.LENGTH_SHORT).show();
 
             }
-        }
+        }*/
     }
 }
