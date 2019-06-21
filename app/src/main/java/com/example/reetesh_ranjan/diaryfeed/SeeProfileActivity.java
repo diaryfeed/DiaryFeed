@@ -19,7 +19,7 @@ public class SeeProfileActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_see_profile);
 
          toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -51,6 +51,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BlogCommentsActivity" />
+        <activity android:name=".BlogDetail"></activity>
     </application>
 
 </manifest>

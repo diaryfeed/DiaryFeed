@@ -4,9 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SeeProfileActivity"
-    android:background="@color/bg1"
-    android:orientation="vertical">
+    tools:context=".SeeProfileActivity">
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/bg"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Username"
+                android:textStyle="bold"
                 android:textColor="#fff"
 
                 android:textSize="15sp"/>
@@ -48,6 +70,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="180dp"
             android:layout_marginRight="40dp"
+            android:layout_marginBottom="10dp"
             app:cardCornerRadius="8dp">
 
             <LinearLayout
@@ -66,15 +89,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Photos"
+                        android:text="Post"
                         android:textSize="15sp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="125"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="17sp"
                         android:paddingTop="10dp"
                         android:textColor="@color/bg"/>
 
@@ -89,6 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Followers"
+                        android:textStyle="bold"
                         android:textSize="15sp"
                         />
                     <TextView
@@ -96,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:text="1205"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="17sp"
                         android:paddingTop="10dp"
                         android:textColor="@color/bg"/>
 
@@ -111,6 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Following"
+                        android:textStyle="bold"
                         android:textSize="15sp"
                         />
                     <TextView
@@ -118,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:text="360"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="17sp"
                         android:paddingTop="10dp"
                         android:textColor="@color/bg"/>
 
@@ -128,29 +154,145 @@
         </android.support.v7.widget.CardView>
     </RelativeLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact Info"
+            android:text="General Information"
             android:textSize="15dp"
-            android:textColor="@color/Dark_color"
+            android:textColor="@color/background_Image_tint"
             android:layout_margin="10dp"
+            android:textStyle="bold"
             />
     </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center"
         android:visibility="visible"
-        app:cardCornerRadius="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
 
+        >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_person_outline_black_24dp"/>
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="username"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_mail_outline_black_24dp"/>
+            <TextView
+                android:id="@+id/tv_email"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="Email Here"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_phone_black_24dp"/>
+            <TextView
+                android:id="@+id/tv_phone"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="Phone Number"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/gender"/>
+            <TextView
+                android:id="@+id/tv_gender"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="Gender"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Information"
+            android:textSize="15dp"
+            android:textColor="@color/background_Image_tint"
+            android:textStyle="bold"
+            android:layout_margin="10dp" />
+    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -216,8 +358,6 @@
                     android:background="@drawable/pintrest"/>
             </LinearLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-
-
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
